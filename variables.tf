@@ -1,0 +1,119 @@
+variable "aws_region" {
+  type        = string
+  default     = "eu-central-1"
+  description = "Region where KMS key and S3 bucket for Guardduty findings are created"
+}
+
+variable "guardduty_tags" {
+  description = "Specifies object tags key and value. This applies to all resources created by this module."
+  default = {
+  }
+}
+
+variable "guardduty_organization_management_account" {
+  type        = bool
+  default     = false
+  description = "Set to true when running from organization management account to configure the Guardduty delegated admin, base configuration and invite members"
+}
+
+variable "guardduty_organization_audit_account" {
+  type        = bool
+  default     = false
+  description = "Set to true when running from organization audit account to configure S3 bucket, KMS key and policies for storing and archivign Guardduty findings in the central audit account"
+}
+
+variable "enable_guardduty_s3_logs_scanning" {
+  type        = bool
+  default     = true
+  description = "Wether to enable scanning of S3 logs"
+}
+
+variable "enable_guardduty_kubenetes_logs_scanning" {
+  type        = bool
+  default     = false
+  description = "Wether to enable scanning of Kubernetes logs"
+}
+
+variable "enable_guardduty_ec2_malware_protection" {
+  type        = bool
+  default     = true
+  description = "Wether to enable malware scanning of EC2 instance EBS volumes"
+}
+
+variable "organization_management_account_id" {
+  type        = string
+  description = "The account ID of the organization managemnet account"
+  default     = ""
+}
+
+variable "organization_member_account_ids" {
+  type        = list(any)
+  description = "List of member account IDs where guarduty will be enabled"
+  default     = []
+}
+
+variable "organization_audit_account_id" {
+  type        = string
+  description = "The account ID of the organization audit account"
+  default     = ""
+}
+
+variable "guardduty_finding_publishing_frequency" {
+  type        = string
+  default     = "SIX_HOURS"
+  description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS"
+}
+
+# KMS
+variable "guardduty_findings_central_s3_bucket_kms_key_arn" {
+  type        = string
+  description = "ARN of KMS key associated with Guardduty S3 bucket"
+  default     = ""
+}
+
+# S3 Bucket
+variable "guardduty_s3_bucket_name" {
+  type    = string
+  default = ""
+}
+
+variable "guardduty_findings_central_s3_bucket_arn" {
+  type        = string
+  description = "ARN of S3 bucket in Audit account where all guarduty events will be stored"
+  default     = ""
+}
+
+variable "guardduty_s3_access_log_bucket_name" {
+  type    = string
+  default = ""
+}
+
+variable "s3_bucket_versioning_enabled" {
+  type        = string
+  default     = "Enabled"
+  description = "Enabled or Disabled - if versioning on S3 bucket should be enabled"
+}
+
+variable "s3_bucket_enable_object_deletion" {
+  type        = string
+  default     = "Enabled"
+  description = "Enabled or Disabled - If objects in guardduty bucket should be deleted"
+}
+
+variable "s3_bucket_object_deletion_after_days" {
+  type        = number
+  default     = 1095
+  description = "After how long show objects in guardduty bucket be deleted"
+}
+
+variable "s3_bucket_enable_object_transition_to_glacier" {
+  type        = string
+  default     = "Enabled"
+  description = "Enabled or Disabled - If objects in guardduty bucket should be transition to glacier"
+}
+
+variable "s3_bucket_object_transition_to_glacier_after_days" {
+  type        = number
+  default     = 365
+  description = "After how long show objects in guardduty bucket be transitioned to glacier"
+}
