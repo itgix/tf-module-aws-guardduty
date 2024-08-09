@@ -71,6 +71,12 @@ variable "guardduty_findings_central_s3_bucket_kms_key_arn" {
   default     = ""
 }
 
+variable "guardduty_s3_kms_key_alias" {
+  type        = string
+  description = "Alias name to configured on KMS key"
+  default     = "alias/guardduty-findings-s3-bucket"
+}
+
 # S3 Bucket
 variable "guardduty_s3_bucket_name" {
   type    = string

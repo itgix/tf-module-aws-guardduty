@@ -113,6 +113,6 @@ resource "aws_kms_key" "guardduty" {
 
 resource "aws_kms_alias" "kms_key_alias" {
   count         = var.guardduty_organization_audit_account ? 1 : 0
-  name          = "alias/guardduty-findings-s3-bucket"
+  name          = var.guardduty_s3_kms_key_alias
   target_key_id = aws_kms_key.guardduty[0].key_id
 }
