@@ -46,9 +46,9 @@ variable "enable_guardduty_ec2_malware_protection" {
   description = "Wether to enable malware scanning of EC2 instance EBS volumes"
 }
 
-variable "organization_management_account_id" {
+variable "organization_security_account_id" {
   type        = string
-  description = "The account ID of the organization managemnet account"
+  description = "The account ID of the organization security account"
   default     = ""
 }
 
