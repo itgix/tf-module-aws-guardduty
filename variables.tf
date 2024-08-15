@@ -13,13 +13,19 @@ variable "guardduty_tags" {
 variable "guardduty_organization_management_account" {
   type        = bool
   default     = false
-  description = "Set to true when running from organization management account to configure the Guardduty delegated admin, base configuration and invite members"
+  description = "Set to true when running from organization management account to configure the Guardduty delegated admin"
 }
 
 variable "guardduty_organization_audit_account" {
   type        = bool
   default     = false
   description = "Set to true when running from organization audit account to configure S3 bucket, KMS key and policies for storing and archivign Guardduty findings in the central audit account"
+}
+
+variable "guardduty_organization_security_account" {
+  type        = bool
+  default     = false
+  description = "Set to true when running from organization security account to configure the Guardduty in the organization and invite member accounts"
 }
 
 variable "enable_guardduty_s3_logs_scanning" {
@@ -122,4 +128,16 @@ variable "s3_bucket_object_transition_to_glacier_after_days" {
   type        = number
   default     = 365
   description = "After how long show objects in guardduty bucket be transitioned to glacier"
+}
+
+variable "guardduty_notification_mail" {
+  type        = string
+  default     = "aws-landing-zones@itgix.com"
+  description = "(Optional) e-mail address that can be provided to receive updates about security issues"
+}
+
+variable "invite_member_account" {
+  type        = bool
+  default     = false
+  description = "(Optional) Boolean whether to invite the account to Security Hub as a member. Defaults to false."
 }
