@@ -70,6 +70,12 @@ variable "guardduty_finding_publishing_frequency" {
   description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS"
 }
 
+variable "disable_email_notification" {
+  type        = bool
+  default     = true
+  description = "(Optional) Boolean whether an email notification is sent to the accounts when new member accounts are registered. Defaults to false"
+}
+
 # KMS
 variable "guardduty_findings_central_s3_bucket_kms_key_arn" {
   type        = string
