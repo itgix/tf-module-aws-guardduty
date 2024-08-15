@@ -60,8 +60,9 @@ data "aws_iam_policy_document" "guardduty_kms" {
     ]
 
     principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::${var.organization_management_account_id}:root"]
+      type = "AWS"
+      #identifiers = ["arn:aws:iam::${var.organization_management_account_id}:root"]
+      identifiers = ["arn:aws:iam::${var.organization_security_account_id}:root"]
     }
   }
 
@@ -94,7 +95,8 @@ data "aws_iam_policy_document" "guardduty_kms" {
       # If we want to allow only a specific role
       #identifiers = ["arn:aws:iam::${var.organization_audit_account_id}:role/${var.assume_role_name}"]
       identifiers = [
-        "arn:aws:iam::${var.organization_management_account_id}:root",
+        #"arn:aws:iam::${var.organization_management_account_id}:root",
+        "arn:aws:iam::${var.organization_security_account_id}:root",
         "arn:aws:iam::${var.organization_audit_account_id}:root",
       ]
     }
