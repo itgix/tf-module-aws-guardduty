@@ -10,11 +10,11 @@ variable "guardduty_tags" {
   }
 }
 
-variable "guardduty_organization_management_account" {
-  type        = bool
-  default     = false
-  description = "Set to true when running from organization management account to configure the Guardduty delegated admin"
-}
+#variable "guardduty_organization_management_account" {
+#type        = bool
+#default     = false
+#description = "Set to true when running from organization management account to configure the Guardduty delegated admin"
+#}
 
 variable "guardduty_organization_audit_account" {
   type        = bool
