@@ -147,9 +147,3 @@ variable "invite_member_account" {
   default     = false
   description = "(Optional) Boolean whether to invite the account to Security Hub as a member. Defaults to false."
 }
-
-variable "guardduty_finding_publishing_frequency" {
-  type        = string
-  default     = "SIX_HOURS"
-  description = "TODO: "
-}
