@@ -95,6 +95,12 @@ variable "guardduty_s3_bucket_name" {
   default = ""
 }
 
+variable "guardduty_detector_id" {
+  type        = string
+  default     = ""
+  description = "Guardduty detector ID"
+}
+
 variable "guardduty_findings_central_s3_bucket_arn" {
   type        = string
   description = "ARN of S3 bucket in Audit account where all guarduty events will be stored"

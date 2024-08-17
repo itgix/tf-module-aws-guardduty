@@ -20,7 +20,8 @@ resource "aws_guardduty_organization_configuration" "itgix_primary" {
   auto_enable_organization_members = "NEW"
 
   # TODO: we need to pass this from the state of the mgmt account
-  detector_id = aws_guardduty_detector.itgix_primary[0].id
+  #detector_id = aws_guardduty_detector.itgix_primary[0].id
+  detector_id = var.guardduty_detector_id
 
   datasources {
     s3_logs {
