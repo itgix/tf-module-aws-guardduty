@@ -50,7 +50,9 @@ resource "aws_guardduty_publishing_destination" "itgix_audit_account" {
   count = var.guardduty_organization_security_account ? 1 : 0
 
   # TODO: we need to pass this from the state of the mgmt account
-  detector_id = aws_guardduty_detector.itgix_primary[0].id
+  #detector_id = aws_guardduty_detector.itgix_primary[0].id
+  detector_id = var.guardduty_detector_id
+
 
   destination_arn = var.guardduty_findings_central_s3_bucket_arn
   kms_key_arn     = var.guardduty_findings_central_s3_bucket_kms_key_arn
@@ -62,7 +64,8 @@ resource "aws_guardduty_member" "members" {
   account_id = var.organization_member_account_ids[count.index]
 
   # TODO: we need to pass this from the state of the mgmt account
-  detector_id = aws_guardduty_detector.itgix_primary[0].id
+  #detector_id = aws_guardduty_detector.itgix_primary[0].id
+  detector_id = var.guardduty_detector_id
 
   disable_email_notification = var.disable_email_notification
   email                      = var.guardduty_notification_mail # this is optional
