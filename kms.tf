@@ -60,8 +60,7 @@ data "aws_iam_policy_document" "guardduty_kms" {
     ]
 
     principals {
-      type = "AWS"
-      #identifiers = ["arn:aws:iam::${var.organization_management_account_id}:root"]
+      type        = "AWS"
       identifiers = ["arn:aws:iam::${var.organization_security_account_id}:root"]
     }
   }
