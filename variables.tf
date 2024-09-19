@@ -19,7 +19,7 @@ variable "guardduty_organization_management_account" {
 variable "guardduty_organization_audit_account" {
   type        = bool
   default     = false
-  description = "Set to true when running from organization audit account to configure S3 bucket, KMS key and policies for storing and archivign Guardduty findings in the central audit account"
+  description = "Set to true when running from organization audit account to configure S3 bucket, KMS key and policies for storing and archiving Guardduty findings in the central audit account"
 }
 
 variable "guardduty_organization_security_account" {
