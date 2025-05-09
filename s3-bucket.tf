@@ -174,6 +174,11 @@ resource "aws_s3_bucket_lifecycle_configuration" "guardduty_findings" {
   rule {
     id     = "transition-objects-to-glacier"
     status = var.s3_bucket_enable_object_transition_to_glacier
+
+    filter {
+      prefix = ""
+    }
+
     transition {
       days          = var.s3_bucket_object_transition_to_glacier_after_days
       storage_class = "GLACIER"
@@ -183,6 +188,11 @@ resource "aws_s3_bucket_lifecycle_configuration" "guardduty_findings" {
   rule {
     id     = "delete-objects"
     status = var.s3_bucket_enable_object_deletion
+
+    filter {
+      prefix = ""
+    }
+
     expiration {
       days = var.s3_bucket_object_deletion_after_days
     }
