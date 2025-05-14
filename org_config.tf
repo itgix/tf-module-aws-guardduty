@@ -14,50 +14,6 @@ resource "aws_guardduty_organization_admin_account" "delegated_guardduty_admin_a
   admin_account_id = var.organization_security_account_id
 }
 
-# guardduty config
-resource "aws_guardduty_organization_configuration" "itgix_primary" {
-  count                            = var.guardduty_organization_security_account ? 1 : 0
-  auto_enable_organization_members = "NEW"
-
-  # TODO: we need to pass this from the state of the mgmt account
-  #detector_id = aws_guardduty_detector.itgix_primary[0].id
-  detector_id = var.guardduty_detector_id
-
-  datasources {
-    s3_logs {
-      auto_enable = var.enable_guardduty_s3_logs_scanning
-    }
-
-    kubernetes {
-      audit_logs {
-        enable = var.enable_guardduty_kubenetes_logs_scanning
-      }
-    }
-
-    malware_protection {
-      scan_ec2_instance_with_findings {
-        ebs_volumes {
-          auto_enable = var.enable_guardduty_ec2_malware_protection
-        }
-      }
-    }
-  }
-}
-
-
-# Requries S3 bucket and KMS key to already be craeted in Logging & Audit account
-resource "aws_guardduty_publishing_destination" "itgix_audit_account" {
-  count = var.guardduty_organization_security_account ? 1 : 0
-
-  # TODO: we need to pass this from the state of the mgmt account
-  #detector_id = aws_guardduty_detector.itgix_primary[0].id
-  detector_id = var.guardduty_detector_id
-
-
-  destination_arn = var.guardduty_findings_central_s3_bucket_arn
-  kms_key_arn     = var.guardduty_findings_central_s3_bucket_kms_key_arn
-}
-
 # member accounts where guardduty is enabled - takes its config from delegated admin account
 resource "aws_guardduty_member" "members" {
   count      = var.guardduty_organization_security_account ? length(var.organization_member_account_ids) : 0
