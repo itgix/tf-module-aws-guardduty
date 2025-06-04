@@ -4,7 +4,7 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "RUNTIME_MONITORING"
-  auto_enable = "all"
+  auto_enable = "ALL"
 
   additional_configuration {
     name        = "EKS_ADDON_MANAGEMENT" # supports EKS_ADDON_MANAGEMENT | ECS_FARGATE_AGENT_MANAGEMENT | EC2_AGENT_MANAGEMENT
@@ -37,28 +37,28 @@ resource "aws_guardduty_organization_configuration_feature" "eks_audit_logs" {
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "EKS_AUDIT_LOGS"
-  auto_enable = "all"
+  auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "ebs_malware_protection" {
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "ebs_malware_protection"
-  auto_enable = "all"
+  auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "rds_login_events" {
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "RDS_LOGIN_EVENTS"
-  auto_enable = "all"
+  auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "lambda_network_logs" {
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "LAMBDA_NETWORK_LOGS"
-  auto_enable = "all"
+  auto_enable = "ALL"
 }
 
 # TODO: replace this with new guardduty config resource
