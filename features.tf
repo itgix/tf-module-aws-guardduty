@@ -24,8 +24,9 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
 #   }
 # }
 
+
+# TODO: add conditionals to enable or disable some of the checks when needed
 # guardduty additional features
-# TODO: add conditionals to enable/disable each feature
 resource "aws_guardduty_organization_configuration_feature" "s3_data_events" {
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
@@ -60,34 +61,3 @@ resource "aws_guardduty_organization_configuration_feature" "lambda_network_logs
   name        = "LAMBDA_NETWORK_LOGS"
   auto_enable = "ALL"
 }
-
-# TODO: replace this with new guardduty config resource
-# TODO: AWS has changed the guardduty APIs and those datasources are now deprecated; these are now handled with a separate resource
-# resource "aws_guardduty_organization_configuration" "itgix_primary" {
-#   count                            = var.guardduty_organization_security_account ? 1 : 0
-#   auto_enable_organization_members = "NEW"
-#
-#   # TODO: we need to pass this from the state of the mgmt account
-#   #detector_id = aws_guardduty_detector.itgix_primary[0].id
-#   detector_id = var.guardduty_detector_id
-#
-#   datasources {
-#     s3_logs {
-#       auto_enable = var.enable_guardduty_s3_logs_scanning
-#     }
-#
-#     kubernetes {
-#       audit_logs {
-#         enable = var.enable_guardduty_kubenetes_logs_scanning
-#       }
-#     }
-#
-#     malware_protection {
-#       scan_ec2_instance_with_findings {
-#         ebs_volumes {
-#           auto_enable = var.enable_guardduty_ec2_malware_protection
-#         }
-#       }
-#     }
-#   }
-# }
