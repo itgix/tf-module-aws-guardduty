@@ -1,7 +1,8 @@
 # guardduty runtime monitoring
 # TODO: Only one of two features EKS_RUNTIME_MONITORING or RUNTIME_MONITORING can be added, adding both features will cause an error
 resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring" {
-  detector_id = aws_guardduty_detector.itgix_primary.id
+  count       = var.guardduty_organization_security_account ? 1 : 0
+  detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "RUNTIME_MONITORING"
   auto_enable = "all"
 
@@ -26,31 +27,36 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
 # guardduty additional features
 # TODO: add conditionals to enable/disable each feature
 resource "aws_guardduty_organization_configuration_feature" "s3_data_events" {
-  detector_id = aws_guardduty_detector.itgix_primary.id
+  count       = var.guardduty_organization_security_account ? 1 : 0
+  detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "S3_DATA_EVENTS"
   auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "eks_audit_logs" {
-  detector_id = aws_guardduty_detector.itgix_primary.id
+  count       = var.guardduty_organization_security_account ? 1 : 0
+  detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "EKS_AUDIT_LOGS"
   auto_enable = "all"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "ebs_malware_protection" {
-  detector_id = aws_guardduty_detector.itgix_primary.id
+  count       = var.guardduty_organization_security_account ? 1 : 0
+  detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "ebs_malware_protection"
   auto_enable = "all"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "rds_login_events" {
-  detector_id = aws_guardduty_detector.itgix_primary.id
+  count       = var.guardduty_organization_security_account ? 1 : 0
+  detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "RDS_LOGIN_EVENTS"
   auto_enable = "all"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "lambda_network_logs" {
-  detector_id = aws_guardduty_detector.itgix_primary.id
+  count       = var.guardduty_organization_security_account ? 1 : 0
+  detector_id = aws_guardduty_detector.itgix_primary[0].id
   name        = "LAMBDA_NETWORK_LOGS"
   auto_enable = "all"
 }
