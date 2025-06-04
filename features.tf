@@ -22,7 +22,7 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
 #     name        = "EKS_ADDON_MANAGEMENT"
 #     auto_enable = "NEW"
 #   }
-# }
+#}
 
 
 # TODO: add conditionals to enable or disable some of the checks when needed
