@@ -43,7 +43,7 @@ resource "aws_guardduty_organization_configuration_feature" "eks_audit_logs" {
 resource "aws_guardduty_organization_configuration_feature" "ebs_malware_protection" {
   count       = var.guardduty_organization_security_account ? 1 : 0
   detector_id = aws_guardduty_detector.itgix_primary[0].id
-  name        = "ebs_malware_protection"
+  name        = "EBS_MALWARE_PROTECTION"
   auto_enable = "ALL"
 }
 
