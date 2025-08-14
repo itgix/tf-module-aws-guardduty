@@ -10,12 +10,6 @@ variable "guardduty_tags" {
   }
 }
 
-variable "guardduty_organization_management_account" {
-  type        = bool
-  default     = false
-  description = "Set to true when running from organization management account to configure the Guardduty delegated admin"
-}
-
 variable "guardduty_organization_audit_account" {
   type        = bool
   default     = false
@@ -62,12 +56,6 @@ variable "organization_audit_account_id" {
   type        = string
   description = "The account ID of the organization audit account"
   default     = ""
-}
-
-variable "guardduty_finding_publishing_frequency" {
-  type        = string
-  default     = "SIX_HOURS"
-  description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS"
 }
 
 variable "disable_email_notification" {
