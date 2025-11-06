@@ -10,6 +10,12 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
     name        = "EKS_ADDON_MANAGEMENT" # supports EKS_ADDON_MANAGEMENT | ECS_FARGATE_AGENT_MANAGEMENT | EC2_AGENT_MANAGEMENT
     auto_enable = "NEW"
   }
+
+  lifecycle {
+    ignore_changes = [
+      additional_configuration,
+    ]
+  }
 }
 
 # TODO: is this needed if we can pass EKS_ADDON_MANAGEMENT to runtime_monitoring (above)

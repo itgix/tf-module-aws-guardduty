@@ -6,8 +6,8 @@ variable "aws_region" {
 
 variable "guardduty_tags" {
   description = "Specifies object tags key and value. This applies to all resources created by this module."
-  default = {
-  }
+  default     = {}
+  type        = map(string)
 }
 
 variable "guardduty_organization_audit_account" {
@@ -20,24 +20,6 @@ variable "guardduty_organization_security_account" {
   type        = bool
   default     = false
   description = "Set to true when running from organization security account to configure the Guardduty in the organization and invite member accounts"
-}
-
-variable "enable_guardduty_s3_logs_scanning" {
-  type        = bool
-  default     = true
-  description = "Wether to enable scanning of S3 logs"
-}
-
-variable "enable_guardduty_kubenetes_logs_scanning" {
-  type        = bool
-  default     = false
-  description = "Wether to enable scanning of Kubernetes logs"
-}
-
-variable "enable_guardduty_ec2_malware_protection" {
-  type        = bool
-  default     = true
-  description = "Wether to enable malware scanning of EC2 instance EBS volumes"
 }
 
 variable "organization_security_account_id" {
@@ -93,11 +75,6 @@ variable "guardduty_findings_central_s3_bucket_arn" {
   type        = string
   description = "ARN of S3 bucket in Audit account where all guarduty events will be stored"
   default     = ""
-}
-
-variable "guardduty_s3_access_log_bucket_name" {
-  type    = string
-  default = ""
 }
 
 variable "s3_bucket_versioning_enabled" {
