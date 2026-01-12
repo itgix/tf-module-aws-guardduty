@@ -76,6 +76,27 @@ variable "enable_lambda_network_logs_scanning" {
   description = ""
 }
 
+# Runtime monitoring options - these are separate because they are created with the same AWS resources but have different fields depending on what is being monitored
+variable "enable_guardduty_runtime_monitoring" {
+  type    = bool
+  default = false
+}
+
+variable "enable_guardduty_eks_addon_management" {
+  type    = bool
+  default = false
+}
+
+variable "enable_guardduty_ec2_agent_management" {
+  type    = bool
+  default = false
+}
+
+variable "enable_guardduty_ecs_fargate_agent_management" {
+  type    = bool
+  default = false
+}
+
 # KMS
 variable "guardduty_findings_central_s3_bucket_kms_key_arn" {
   type        = string
