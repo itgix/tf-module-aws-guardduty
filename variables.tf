@@ -45,56 +45,60 @@ variable "disable_email_notification" {
   description = "(Optional) Boolean whether an email notification is sent to the accounts when new member accounts are registered. Defaults to false"
 }
 
-# Scanning features
+# Runtime monitoring options - these are separate because they are created with the same AWS resources but have different fields depending on what is being monitored
+variable "enable_guardduty_runtime_monitoring" {
+  type        = bool
+  default     = false
+  description = "Enable Amazon GuardDuty Runtime Monitoring at the organization level to detect potentially malicious activity on compute workloads."
+}
+
+variable "enable_guardduty_eks_addon_management" {
+  type        = bool
+  default     = false
+  description = "Enable GuardDuty-managed EKS add-on deployment for runtime monitoring of Amazon EKS workloads. Requires GuardDuty runtime monitoring to be enabled."
+}
+
+variable "enable_guardduty_ec2_agent_management" {
+  type        = bool
+  default     = false
+  description = "Enable GuardDuty-managed agent deployment for runtime monitoring on Amazon EC2 instances. Requires GuardDuty runtime monitoring to be enabled."
+}
+
+variable "enable_guardduty_ecs_fargate_agent_management" {
+  type        = bool
+  default     = false
+  description = "Enable GuardDuty-managed agent deployment for runtime monitoring of Amazon ECS tasks running on AWS Fargate. Requires GuardDuty runtime monitoring to be enabled."
+}
+
+# Additional scanning features
 variable "enable_s3_data_events_scanning" {
   type        = bool
   default     = false
-  description = ""
+  description = "Enable Amazon GuardDuty monitoring for S3 data events, detecting suspicious object-level API activity such as unauthorized access or data exfiltration attempts."
 }
 
 variable "enable_eks_audit_logs_scanning" {
   type        = bool
   default     = false
-  description = ""
+  description = "Enable Amazon GuardDuty analysis of Amazon EKS control plane audit logs to detect suspicious or malicious Kubernetes API activity."
 }
 
 variable "enable_ebs_malware_protection_scanning" {
   type        = bool
   default     = false
-  description = ""
+  description = "Enable Amazon GuardDuty malware protection for Amazon EBS volumes by scanning newly created and attached volumes for known malware."
 }
 
 variable "enable_rds_login_events_scanning" {
   type        = bool
   default     = false
-  description = ""
+  description = "Enable Amazon GuardDuty monitoring of Amazon RDS login activity to detect anomalous or potentially malicious database authentication behavior."
 }
 
 variable "enable_lambda_network_logs_scanning" {
   type        = bool
   default     = false
-  description = ""
-}
-
-# Runtime monitoring options - these are separate because they are created with the same AWS resources but have different fields depending on what is being monitored
-variable "enable_guardduty_runtime_monitoring" {
-  type    = bool
-  default = false
-}
-
-variable "enable_guardduty_eks_addon_management" {
-  type    = bool
-  default = false
-}
-
-variable "enable_guardduty_ec2_agent_management" {
-  type    = bool
-  default = false
-}
-
-variable "enable_guardduty_ecs_fargate_agent_management" {
-  type    = bool
-  default = false
+  description = "Enable Amazon GuardDuty analysis of AWS Lambda network activity to detect suspicious outbound connections or unexpected network behavior."
 }
 
 # KMS
