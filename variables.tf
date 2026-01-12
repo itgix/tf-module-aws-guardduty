@@ -1,6 +1,5 @@
 variable "aws_region" {
   type        = string
-  default     = "eu-central-1"
   description = "Region where KMS key and S3 bucket for Guardduty findings are created"
 }
 
@@ -44,6 +43,37 @@ variable "disable_email_notification" {
   type        = bool
   default     = true
   description = "(Optional) Boolean whether an email notification is sent to the accounts when new member accounts are registered. Defaults to false"
+}
+
+# Scanning features
+variable "enable_s3_data_events_scanning" {
+  type        = bool
+  default     = false
+  description = ""
+}
+
+variable "enable_eks_audit_logs_scanning" {
+  type        = bool
+  default     = false
+  description = ""
+}
+
+variable "enable_ebs_malware_protection_scanning" {
+  type        = bool
+  default     = false
+  description = ""
+}
+
+variable "enable_rds_login_events_scanning" {
+  type        = bool
+  default     = false
+  description = ""
+}
+
+variable "enable_lambda_network_logs_scanning" {
+  type        = bool
+  default     = false
+  description = ""
 }
 
 # KMS

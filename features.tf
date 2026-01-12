@@ -8,7 +8,7 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
 
   additional_configuration {
     name        = "EKS_ADDON_MANAGEMENT" # supports EKS_ADDON_MANAGEMENT | ECS_FARGATE_AGENT_MANAGEMENT | EC2_AGENT_MANAGEMENT
-    auto_enable = "NEW"
+    auto_enable = "ALL"
   }
 
   lifecycle {
@@ -31,38 +31,37 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
 #}
 
 
-# TODO: add conditionals to enable or disable some of the checks when needed
 # guardduty additional features
 resource "aws_guardduty_organization_configuration_feature" "s3_data_events" {
-  count       = var.guardduty_organization_security_account ? 1 : 0
+  count       = var.guardduty_organization_security_account || var.enable_s3_data_events_scanning ? 1 : 0
   detector_id = var.guardduty_detector_id // from mgmt account
   name        = "S3_DATA_EVENTS"
   auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "eks_audit_logs" {
-  count       = var.guardduty_organization_security_account ? 1 : 0
+  count       = var.guardduty_organization_security_account || var.enable_eks_audit_logs_scanning ? 1 : 0
   detector_id = var.guardduty_detector_id // from mgmt account
   name        = "EKS_AUDIT_LOGS"
   auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "ebs_malware_protection" {
-  count       = var.guardduty_organization_security_account ? 1 : 0
+  count       = var.guardduty_organization_security_account || var.enable_ebs_malware_protection_scanning ? 1 : 0
   detector_id = var.guardduty_detector_id // from mgmt account
   name        = "EBS_MALWARE_PROTECTION"
   auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "rds_login_events" {
-  count       = var.guardduty_organization_security_account ? 1 : 0
+  count       = var.guardduty_organization_security_account || var.enable_rds_login_events_scanning ? 1 : 0
   detector_id = var.guardduty_detector_id // from mgmt account
   name        = "RDS_LOGIN_EVENTS"
   auto_enable = "ALL"
 }
 
 resource "aws_guardduty_organization_configuration_feature" "lambda_network_logs" {
-  count       = var.guardduty_organization_security_account ? 1 : 0
+  count       = var.guardduty_organization_security_account || var.enable_lambda_network_logs_scanning ? 1 : 0
   detector_id = var.guardduty_detector_id // from mgmt account
   name        = "LAMBDA_NETWORK_LOGS"
   auto_enable = "ALL"
