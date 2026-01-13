@@ -35,6 +35,10 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
       auto_enable = "ALL"
     }
   }
+
+  lifecycle {
+    ignore_changes = [additional_configuration]
+  }
 }
 
 # guardduty additional features
