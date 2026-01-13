@@ -1,3 +1,13 @@
+locals {
+  guardduty_runtime_additional_configurations = sort([
+    for name, enabled in {
+      EKS_ADDON_MANAGEMENT         = var.enable_guardduty_eks_addon_management
+      EC2_AGENT_MANAGEMENT         = var.enable_guardduty_ec2_agent_management
+      ECS_FARGATE_AGENT_MANAGEMENT = var.enable_guardduty_ecs_fargate_agent_management
+    } : name if enabled
+  ])
+}
+
 # guardduty runtime monitoring
 resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring" {
   count       = var.guardduty_organization_security_account && var.enable_guardduty_runtime_monitoring ? 1 : 0
@@ -18,16 +28,10 @@ resource "aws_guardduty_organization_configuration_feature" "runtime_monitoring"
   # - EKS_RUNTIME_MONITORING must NOT be enabled as a separate feature
   # - Enabling multiple additional configurations here is valid and supported
   dynamic "additional_configuration" {
-    for_each = {
-      for k, v in {
-        EKS_ADDON_MANAGEMENT         = var.enable_guardduty_eks_addon_management
-        EC2_AGENT_MANAGEMENT         = var.enable_guardduty_ec2_agent_management
-        ECS_FARGATE_AGENT_MANAGEMENT = var.enable_guardduty_ecs_fargate_agent_management
-      } : k => v if v
-    }
+    for_each = local.guardduty_runtime_additional_configurations
 
     content {
-      name        = additional_configuration.key
+      name        = additional_configuration.value
       auto_enable = "ALL"
     }
   }
